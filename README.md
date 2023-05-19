@@ -2,4 +2,4 @@
 
 ## Database Design
 
-![Database Design](db-design.jpg)
+![Database Design](design-db.jpg)
