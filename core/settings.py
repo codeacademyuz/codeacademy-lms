@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'lms.apps.LmsConfig',
+    'enrollments.apps.EnrollmentsConfig'
 
     'rest_framework',
 ]
