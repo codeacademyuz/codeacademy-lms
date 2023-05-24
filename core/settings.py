@@ -38,7 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'enrollments.apps.EnrollmentsConfig'
+    'students',
+    'assignments',
+    'reporter',
 
     'rest_framework',
 ]
