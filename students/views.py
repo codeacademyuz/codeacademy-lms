@@ -23,6 +23,15 @@ class StudentView(APIView):
             return Response(status=status.HTTP_404_NOT_FOUND)
 
     def post(self, request: Request):
+        region = request.data.get('region')
+        if region is not None:
+            try:
+                region = Region.objects.get(pk=region)
+            except Region.DoesNotExist:
+                return Response(status=status.HTTP_404_NOT_FOUND)
+
+            request.data['region'] = region.id
+
         serializer = StudentSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
