@@ -8,7 +8,7 @@ class Attempt(models.Model):
     student = models.ForeignKey(Student, on_delete=models.CASCADE, related_name='attempts')
     task = models.ForeignKey(Task, on_delete=models.CASCADE, related_name='attempts')
     assignment = models.ForeignKey(Assignment, on_delete=models.CASCADE, related_name='attempts')
-    is_corrent = models.BooleanField()
+    is_correct = models.BooleanField()
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

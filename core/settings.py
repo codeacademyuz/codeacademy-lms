@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-um1bw7r-zf)paj=01etz$ukmoot19*ujtwtgj)$c-9hq35izg(
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [*]
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -43,6 +43,9 @@ INSTALLED_APPS = [
     'reporter',
 
     'rest_framework',
+
+    # django cors headers
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -53,7 +56,12 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    # django cors headers
+    'corsheaders.middleware.CorsMiddleware',
 ]
+
+CORS_ORIGIN_ALLOW_ALL = True
 
 ROOT_URLCONF = 'core.urls'
 
