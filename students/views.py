@@ -26,16 +26,24 @@ class StudentView(APIView):
         region = request.data.get('region')
         if region is not None:
             try:
-                region = Region.objects.get(pk=region)
+                region = Region.objects.get(name=region)
             except Region.DoesNotExist:
                 return Response(status=status.HTTP_404_NOT_FOUND)
 
-            request.data['region'] = region.id
+            data = {
+                "first_name": request.data.get('first_name'),
+                "last_name": request.data.get('last_name'),
+                "tg_username": request.data.get('tg_username'), 
+                "tg_chat_id": request.data.get('tg_chat_id'),
+                "phone": request.data.get('phone'),
+                "school": request.data.get('school'), 
+                "region": region.id
+            }
 
-        serializer = StudentSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
+            serializer = StudentSerializer(data=data)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
     
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
