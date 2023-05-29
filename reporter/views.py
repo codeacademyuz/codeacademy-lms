@@ -90,3 +90,56 @@ class ReporterView(APIView):
 
         return Response(result)
 
+
+class ReporterByRegion(APIView):
+    def get(self, request: Request) -> Response:
+        assignement_name = request.query_params.get('assignment_name')
+        region = request.query_params.get('assignment_name')
+        
+        if assignement_name is None:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+
+        try:
+            assignment = Assignment.objects.get(name=assignement_name)
+        except Assignment.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
+        students = Student.objects.filter(region=region)
+        tasks = Task.objects.filter(assignment=assignment)
+
+        result = []
+        for student in students:
+            student_result = {
+                'student': {
+                    'first_name': student.first_name,
+                    'last_name': student.last_name,
+                    'tg_username': student.tg_username,
+                    'region': student.region.name,
+                    'phone': student.phone,
+                    'github': student.github,
+                    'school': student.school
+                },
+                'tasks': []
+            }
+            for task in tasks:
+                attempts = Attempt.objects.filter(
+                    student=student,
+                    task=task
+                ).order_by('-created_at')
+                
+                if attempts.exists():
+                    attempt = attempts.first()
+                    student_result['tasks'].append({
+                        'task_name': task.name,
+                        'is_correct': attempt.is_correct,
+                        'attepts_count': attempts.count(),
+                    })
+                else:
+                    student_result['tasks'].append({
+                        'task_name': task.name,
+                        'is_correct': False,
+                        'attepts_count': 0,
+                    })
+            result.append(student_result)
+
+        return Response(result)
