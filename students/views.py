@@ -3,8 +3,8 @@ from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework import status
 
-from .models import Student, Region
-from .serializers import StudentSerializer, RegionSerializer
+from .models import Student, Region, Group
+from .serializers import StudentSerializer, RegionSerializer, GroupSerializer
 
 
 class StudentView(APIView):
@@ -80,3 +80,11 @@ class StudentByRegionView(APIView):
         students = region.students.all()
         serializer = StudentSerializer(students, many=True)
         return Response(serializer.data)
+
+
+class GroupView(APIView):
+    def get(self, request: Request):
+        groups = Group.objects.all()
+        serializer = GroupSerializer(groups, many=True)
+        return Response(serializer.data)
+    
