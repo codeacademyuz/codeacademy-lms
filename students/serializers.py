@@ -1,6 +1,6 @@
 from rest_framework.serializers import ModelSerializer
 
-from .models import Student, Region
+from .models import Student, Region, Group
 
 
 class StudentSerializer(ModelSerializer):
@@ -12,4 +12,10 @@ class StudentSerializer(ModelSerializer):
 class RegionSerializer(ModelSerializer):
     class Meta:
         model = Region
+        fields = '__all__'
+
+
+class GroupSerializer(ModelSerializer):
+    class Meta:
+        model = Group
         fields = '__all__'
