@@ -70,18 +70,6 @@ class StudentView(APIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
-class StudentByRegionView(APIView):
-    def get(self, request: Request, region_id: int):
-        try:
-            region = Region.objects.get(pk=region_id)
-        except Region.DoesNotExist:
-            return Response(status=status.HTTP_404_NOT_FOUND)
-
-        students = region.students.all()
-        serializer = StudentSerializer(students, many=True)
-        return Response(serializer.data)
-
-
 class GroupView(APIView):
     def get(self, request: Request):
         groups = Group.objects.all()

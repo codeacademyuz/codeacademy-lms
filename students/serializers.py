@@ -18,4 +18,4 @@ class RegionSerializer(ModelSerializer):
 class GroupSerializer(ModelSerializer):
     class Meta:
         model = Group
-        fields = ('id', 'name')
+        fields = '__all__'
