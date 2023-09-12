@@ -3,8 +3,8 @@ from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework import status
 
-from .models import Student, Region, Group
-from .serializers import StudentSerializer, RegionSerializer, GroupSerializer
+from .models import Student, Group
+from .serializers import StudentSerializer, GroupSerializer
 
 
 class StudentView(APIView):
@@ -23,27 +23,10 @@ class StudentView(APIView):
             return Response(status=status.HTTP_404_NOT_FOUND)
 
     def post(self, request: Request):
-        region = request.data.get('region')
-        if region is not None:
-            try:
-                region = Region.objects.get(name=region)
-            except Region.DoesNotExist:
-                return Response(status=status.HTTP_404_NOT_FOUND)
-
-            data = {
-                "first_name": request.data.get('first_name'),
-                "last_name": request.data.get('last_name'),
-                "tg_username": request.data.get('tg_username'), 
-                "tg_chat_id": request.data.get('tg_chat_id'),
-                "phone": request.data.get('phone'),
-                "school": request.data.get('school'), 
-                "region": region.id
-            }
-
-            serializer = StudentSerializer(data=data)
-            if serializer.is_valid():
-                serializer.save()
-                return Response(serializer.data, status=status.HTTP_201_CREATED)
+        serializer = StudentSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
     
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
