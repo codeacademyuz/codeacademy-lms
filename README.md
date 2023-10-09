@@ -11,6 +11,20 @@ This document provides information on the API endpoints and their usage for the 
 
 ## Endpoints
 
+Here's the API documentation presented in a tabular format:
+
+| **Endpoint**                                 | **HTTP Method** | **Description**                                      | **Response**                                                                                               |
+|---------------------------------------------|-----------------|------------------------------------------------------|-------------------------------------------------------------------------------------------------------------|
+| `/students/`                                | GET             | Get All Students                                    | List of all students                                                                                        |
+| `/students/<int:pk>/`                       | GET             | Get a Student by ID                                 | Single student details                                                                                      |
+| `/courses/`                                 | GET             | Get All Courses                                     | List of all courses                                                                                         |
+| `/courses/<int:pk>/`                        | GET             | Get a Course by ID                                  | Single course details                                                                                       |
+| `/courses/<int:pk>/groups/`                 | GET             | Get All Groups for a Course                        | List of all groups for a course                                                                             |
+| `/courses/<int:course_id>/groups/<int:group_id>/homeworks/` | GET             | Get All Homeworks for a Group within a Course | List of all homework assignments for a specific group within a course                                      |
+| `/reporter/attempt/` | POST             | Attempt                                      |
+| `/reporter/by-group/` | GET             | Get Result by group                                      |
+
+
 ### Create or Update Student Attempt
 
 **Endpoint:** `POST /reporter/attempt/`
