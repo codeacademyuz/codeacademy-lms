@@ -1,4 +1,5 @@
 from django.db import models
+from assignments.models import Assignment
 
 
 class Course(models.Model):
@@ -24,3 +25,11 @@ class Group(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Homework(models.Model):
+    assignment = models.ForeignKey(Assignment, on_delete=models.CASCADE)
+    group = models.ForeignKey(Group, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.assignment.name

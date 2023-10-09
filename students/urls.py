@@ -1,9 +1,11 @@
 from django.urls import path
 
-from .views import StudentView, GroupView
+from .views import StudentView, GroupView, CourseView, HomeworkView
 
 urlpatterns = [
-    path('', StudentView.as_view()),
-    path('<int:pk>/', StudentView.as_view()),
-    path('groups/', GroupView.as_view()),
+    path('students/', StudentView.as_view()),
+    path('students/<int:pk>/', StudentView.as_view()),
+    path('courses/', CourseView.as_view()),
+    path('courses/<int:pk>/groups/', GroupView.as_view()),
+    path('courses/<int:assignment_id>/groups/<int:group_id>/homeworks/', HomeworkView.as_view()),
 ]

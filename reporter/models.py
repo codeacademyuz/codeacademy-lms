@@ -3,7 +3,6 @@ from students.models import Student
 from assignments.models import Task, Assignment
 
 
-
 class Attempt(models.Model):
     student = models.ForeignKey(Student, on_delete=models.CASCADE, related_name='attempts')
     task = models.ForeignKey(Task, on_delete=models.CASCADE, related_name='attempts')
